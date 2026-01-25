@@ -10,10 +10,20 @@ import java.util.List;
 
 public class HelloWorld {
     public static void main(String[] args) {
+
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
-            config.fileRenderer(new JavalinJte());
-        }).before(ctx -> ctx.contentType("text/html; charset=UTF-8"));;
+        });
+        // Описываем, что загрузится по адресу /
+        app.get("/", ctx -> ctx.result("Hello World"));
+        app.start(7070);
+
+//        var app = Javalin.create(config -> {
+//            config.bundledPlugins.enableDevLogging();
+//            config.fileRenderer(new JavalinJte());
+//        }).before(ctx -> ctx.contentType("text/html; charset=UTF-8"));
+
+
 
         app.get("/courses", ctx -> {
             var courses = List.of(new Course("Программирование", "Основы программирования на Java"),
